@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+
+    <!--     This Tamplate Used for Disclamer on Invoice Report-->
+    <template id="inherit_report_invoice_template" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='text-muted mb-3']" position="after">
+            <br/>
+            <t t-if="not any(line.move_id.invoice_line_ids.filtered(lambda l: any(tax.margin_tax_bool for tax in l.tax_ids)))">
+                <span></span>
+            </t>
+            <t t-else="">
+                <div class="row" style="page-break-inside: avoid;">
+                    <div class="col-12">
+                        <p style="font-size: 0.9rem; border-left: 3px solid #000; padding-left: 10px;">
+                            <strong>Disclaimer:</strong>
+                            Der Gesamtbetrag ist gemäß § 25a UStG (Differenzbesteuerung
+                            "Gebrauchtgegenstände/Sonderregelung") ohne Steuerausweisung.
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+
+    <!--     This Tamplate Used for Hide Untaxed Amount and Vat Tax on Invoice Report-->
+    <template id="inherit_report_invoice_template_for_taxes" inherit_id="account.document_tax_totals_template">
+
+        <!--     This xpath Used for Hide Untaxed Amount on Invoice Report-->
+        <xpath expr="//tr[@class='o_subtotal']" position="attributes">
+            <attribute name="t-if">
+                not any(tax_group.get('group_name') and 'margin' in tax_group['group_name'].lower() for subtotal in
+                tax_totals['subtotals'] for tax_group in subtotal['tax_groups'])
+            </attribute>
+        </xpath>
+
+        <!--     This xpath Used for Hide VAT Tax on Invoice Report-->
+        <xpath expr="//tr[@class='o_taxes']" position="attributes">
+            <attribute name="t-if">
+                not any(tax_group.get('group_name') and 'margin' in tax_group['group_name'].lower() for subtotal in
+                tax_totals['subtotals'] for tax_group in subtotal['tax_groups'])
+            </attribute>
+        </xpath>
+
+    </template>
+
+</odoo>

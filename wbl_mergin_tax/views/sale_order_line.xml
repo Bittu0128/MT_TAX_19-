@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <data>
+        <record id="view_sale_order_form_inherit_product_margin" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.product.margin</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_unit' and contains(@readonly, 'qty_invoiced')]" position="after">
+                     <field name="margin"/>
+                     <field name="cost_price"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

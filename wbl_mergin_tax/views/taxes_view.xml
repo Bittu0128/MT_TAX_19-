@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <data>
+        <record id="view_tax_form_inherit_margin_tax" model="ir.ui.view">
+            <field name="name">account.tax.form.inherit.margin.tax</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/group/group/field[@name='cash_basis_transition_account_id']" position="after">
+                    <field name="margin_tax_bool"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

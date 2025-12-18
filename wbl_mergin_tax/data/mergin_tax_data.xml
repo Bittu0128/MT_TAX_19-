@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- # Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>) -->
+<!-- # Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd. -->
+<odoo>
+
+    <!--    Tax Group-->
+    <record id="margin_tax_group" model="account.tax.group">
+        <field name="name">Margin Tax</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!--    Taxes -->
+    <record id="tax_included_19" model="account.tax">
+        <field name="name">Tax 19%</field>
+        <field name="amount">19</field>
+        <field name="amount_type">percent</field>
+        <field name="type_tax_use">sale</field>
+        <field name="active">True</field>
+        <field name="price_include_override">tax_included</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="tax_group_id" ref="margin_tax_group"/>
+    </record>
+
+</odoo>
